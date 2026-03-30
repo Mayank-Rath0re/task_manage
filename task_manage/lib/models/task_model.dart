@@ -1,5 +1,5 @@
 class TaskModel {
-  int taskId;
+  String taskId; //format: userid_taskCount
   String text;
   String description;
   DateTime dueDate;
