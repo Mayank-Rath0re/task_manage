@@ -20,7 +20,7 @@ class AbsBottomNav extends StatelessWidget {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -45,15 +45,9 @@ class AbsBottomNav extends StatelessWidget {
                 colorScheme: colorScheme,
               ),
               _buildNavItem(
-                icon: Icons.bolt_outlined,
-                label: 'FOCUS',
-                index: 2,
-                colorScheme: colorScheme,
-              ),
-              _buildNavItem(
                 icon: Icons.settings_outlined,
                 label: 'SETTINGS',
-                index: 3,
+                index: 2,
                 colorScheme: colorScheme,
               ),
             ],

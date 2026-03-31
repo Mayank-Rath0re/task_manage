@@ -10,10 +10,7 @@ class DashboardPage extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: const Color(
-        0xFFF4F5F7,
-      ), // Light grayish-white background
-      appBar: _buildAppBar(colorScheme),
+      backgroundColor: const Color(0xFFF4F5F7),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         child: Column(
@@ -22,16 +19,12 @@ class DashboardPage extends StatelessWidget {
             _buildDateText(),
             const SizedBox(height: 8),
             _buildGreeting(colorScheme),
-            const SizedBox(height: 16),
-            _buildStreakBadge(colorScheme),
             const SizedBox(height: 32),
             _buildDailyEnergyCard(colorScheme),
             const SizedBox(height: 32),
             _buildTopPrioritiesHeader(colorScheme),
             const SizedBox(height: 16),
             _buildPriorityList(colorScheme),
-            const SizedBox(height: 32),
-            _buildDeepWorkBanner(colorScheme),
             const SizedBox(height: 80), // Padding for FAB overlap
           ],
         ),
@@ -54,44 +47,13 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // --- APP BAR ---
-  AppBar _buildAppBar(ColorScheme colorScheme) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: Row(
-        children: [
-          Icon(Icons.grid_view_rounded, color: colorScheme.primary, size: 24),
-          const SizedBox(width: 8),
-          const Text(
-            'TaskFlow',
-            style: TextStyle(
-              color: Colors.black87,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-        ],
-      ),
-      actions: const [
-        CircleAvatar(
-          radius: 18,
-          backgroundImage: NetworkImage(
-            'https://i.pravatar.cc/150?img=11',
-          ), // Placeholder avatar
-        ),
-        SizedBox(width: 20),
-      ],
-    );
-  }
-
   // --- HEADER SECTION ---
   Widget _buildDateText() {
     return Text(
       'WEDNESDAY, MAY 24',
       style: TextStyle(
         color: Colors.grey.shade600,
-        fontSize: 11,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         letterSpacing: 1.2,
       ),
@@ -102,14 +64,14 @@ class DashboardPage extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: const TextStyle(
-          fontSize: 44,
+          fontSize: 26,
           fontWeight: FontWeight.w900,
           color: Colors.black87,
           height: 1.05,
           letterSpacing: -1.0,
         ),
         children: [
-          const TextSpan(text: 'Ready to\n'),
+          const TextSpan(text: 'Ready to '),
           TextSpan(
             text: 'conquer',
             style: TextStyle(
@@ -117,33 +79,7 @@ class DashboardPage extends StatelessWidget {
               fontStyle: FontStyle.italic,
             ),
           ),
-          const TextSpan(text: ',\nAlex?'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStreakBadge(ColorScheme colorScheme) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: colorScheme.secondary, // Theme Blue
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          Icon(Icons.bolt, color: Colors.white, size: 18),
-          SizedBox(width: 4),
-          Text(
-            '12 DAY STREAK',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-            ),
-          ),
+          const TextSpan(text: ', Alex?'),
         ],
       ),
     );
@@ -435,93 +371,4 @@ class DashboardPage extends StatelessWidget {
   }
 
   // --- DEEP WORK BANNER ---
-  Widget _buildDeepWorkBanner(ColorScheme colorScheme) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Color(0xFF383838),
-            Color(0xFF1E242B),
-          ], // Dark Grey to Dark Navy
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(32),
-      ),
-      child: Column(
-        children: [
-          const Text(
-            'Deep Work\nawaits. Silence the\nworld.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 28,
-              fontWeight: FontWeight.w900,
-              height: 1.1,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Activate Focus Mode to\nblock all notifications and\nenter the flow state.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.grey.shade400,
-              fontSize: 14,
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 32),
-          Container(
-            width: double.infinity,
-            height: 56,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  colorScheme.primary,
-                  const Color(0xFFFFA07A),
-                ], // Orange gradient
-              ),
-              borderRadius: BorderRadius.circular(28),
-              boxShadow: [
-                BoxShadow(
-                  color: colorScheme.primary.withOpacity(0.4),
-                  blurRadius: 12,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.bolt, color: Colors.white),
-                  SizedBox(width: 8),
-                  Text(
-                    'ENTER FOCUS\nMODE',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

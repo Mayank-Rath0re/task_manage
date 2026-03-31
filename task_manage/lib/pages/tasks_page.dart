@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manage/components/abs_task_widget.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({super.key});
@@ -9,8 +10,7 @@ class TasksPage extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F5F7), // Neutral background
-      appBar: _buildAppBar(colorScheme),
+      backgroundColor: const Color(0xFFF4F5F7),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         child: Column(
@@ -39,35 +39,6 @@ class TasksPage extends StatelessWidget {
         child: const Icon(Icons.add, size: 28),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-    );
-  }
-
-  // --- APP BAR ---
-  AppBar _buildAppBar(ColorScheme colorScheme) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: Row(
-        children: [
-          Icon(Icons.grid_view_rounded, color: Colors.grey.shade700, size: 24),
-          const SizedBox(width: 8),
-          const Text(
-            'TaskFlow',
-            style: TextStyle(
-              color: Colors.black87,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-        ],
-      ),
-      actions: const [
-        CircleAvatar(
-          radius: 18,
-          backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=11'),
-        ),
-        SizedBox(width: 20),
-      ],
     );
   }
 
@@ -206,162 +177,21 @@ class TasksPage extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
-        _buildWorkCard(
-          colorScheme: colorScheme,
-          icon: Icons.code,
-          iconColor: colorScheme.secondary,
-          iconBgColor: colorScheme.secondary.withOpacity(0.1),
-          badgeText: 'IN PROGRESS',
-          badgeColor: colorScheme.tertiary, // Theme Green
-          badgeTextColor: Colors.black87,
+        AbsTaskWidget(
           title: 'Redesign Landing Page',
           description: 'Review the latest Figma components for the Q3 release.',
           date: 'Oct 24, 2023',
-          showAvatars: true,
+          // New Blocked Feature
+          blockedByTask: 'Waiting on Marketing Copy approval',
         ),
         const SizedBox(height: 16),
-        _buildWorkCard(
-          colorScheme: colorScheme,
-          icon: Icons.campaign,
-          iconColor: colorScheme.primary,
-          iconBgColor: colorScheme.primary.withOpacity(0.1),
-          badgeText: 'PENDING',
-          badgeColor: Colors.grey.shade300,
-          badgeTextColor: Colors.black54,
+        AbsTaskWidget(
           title: 'Marketing Strategy Sync',
           description: 'Discuss ad spend for the upcoming holiday campaign.',
-          date: 'Oct 25, 2023',
-          showAvatars: false,
+          date: 'Oct 24, 2023',
         ),
+        const SizedBox(height: 16),
       ],
-    );
-  }
-
-  Widget _buildWorkCard({
-    required ColorScheme colorScheme,
-    required IconData icon,
-    required Color iconColor,
-    required Color iconBgColor,
-    required String badgeText,
-    required Color badgeColor,
-    required Color badgeTextColor,
-    required String title,
-    required String description,
-    required String date,
-    required bool showAvatars,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: iconBgColor,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(icon, color: iconColor, size: 20),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: badgeColor,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Text(
-                  badgeText,
-                  style: TextStyle(
-                    color: badgeTextColor,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey.shade600,
-              height: 1.4,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Divider(color: Colors.grey.shade200),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.calendar_today_outlined,
-                    size: 14,
-                    color: Colors.grey.shade500,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    date,
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                  ),
-                ],
-              ),
-              if (showAvatars)
-                SizedBox(
-                  width: 50,
-                  height: 24,
-                  child: Stack(
-                    children: const [
-                      Positioned(
-                        right: 0,
-                        child: CircleAvatar(
-                          radius: 12,
-                          backgroundImage: NetworkImage(
-                            'https://i.pravatar.cc/150?img=33',
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 18,
-                        child: CircleAvatar(
-                          radius: 12,
-                          backgroundImage: NetworkImage(
-                            'https://i.pravatar.cc/150?img=12',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              else
-                Icon(Icons.more_horiz, color: Colors.grey.shade400),
-            ],
-          ),
-        ],
-      ),
     );
   }
 

@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:task_manage/components/abs_gradient_button.dart';
+import 'package:task_manage/components/abs_textfield.dart';
+import 'package:task_manage/pages/navigation_screen.dart';
 
-class OnboardingPage extends StatelessWidget {
+class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
 
+  @override
+  State<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+class _OnboardingPageState extends State<OnboardingPage> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -15,15 +25,6 @@ class OnboardingPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ONBOARDING PHASE 01',
-                style: TextStyle(
-                  color: colorScheme.secondary, // Theme Blue
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.2,
-                ),
-              ),
               const SizedBox(height: 12),
               RichText(
                 text: const TextSpan(
@@ -123,27 +124,14 @@ class OnboardingPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey.shade100,
-                        hintText: 'e.g. Alexander Pierce',
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 16,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
+                    AbsTextfield(
+                      controller: nameController,
+                      hintText: 'e.g. Alexander Pierce',
+                      onChanged: () {},
                     ),
                     const SizedBox(height: 24),
-
-                    // --- WORKSPACE DROPDOWN ---
                     const Text(
-                      'Choose your workspace',
+                      'Username',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -151,91 +139,28 @@ class OnboardingPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    DropdownButtonFormField<String>(
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: Colors.grey.shade600,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey.shade100,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 16,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      hint: Text(
-                        'Select a workspace type',
-                        style: TextStyle(color: Colors.black87, fontSize: 15),
-                      ),
-                      items: <String>['Personal', 'Team', 'Enterprise'].map((
-                        String value,
-                      ) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (_) {},
+                    AbsTextfield(
+                      controller: usernameController,
+                      hintText: 'e.g. pro_gamer123',
+                      onChanged: () {},
                     ),
+
                     const SizedBox(height: 32),
 
                     // --- CONTINUE BUTTON ---
-                    Container(
-                      width: double.infinity,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            const Color(0xFFB33609), // Dark burnt orange
-                            colorScheme.primary, // Theme Orange
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(28),
-                        boxShadow: [
-                          BoxShadow(
-                            color: colorScheme.primary.withValues(alpha: 0.3),
-                            blurRadius: 12,
-                            offset: const Offset(0, 6),
+                    AbsGradientButton(
+                      text: "Continue",
+                      suffixIcon: Icon(Icons.arrow_forward, size: 25),
+                      alignCenter: true,
+                      onPressed: () {
+                        // To be replaced with proper signup functionality
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainNavigationScreen(),
                           ),
-                        ],
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(28),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'CONTINUE',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.2,
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          ],
-                        ),
-                      ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 24),
 

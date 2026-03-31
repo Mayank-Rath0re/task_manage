@@ -12,7 +12,6 @@ class TaskDetailsPage extends StatelessWidget {
       backgroundColor: const Color(
         0xFFF4F5F7,
       ), // Light grayish-white background
-      appBar: _buildAppBar(context, colorScheme),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
         child: Column(
@@ -33,43 +32,6 @@ class TaskDetailsPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  // --- APP BAR ---
-  AppBar _buildAppBar(BuildContext context, ColorScheme colorScheme) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.black87),
-        onPressed: () => Navigator.pop(context),
-      ),
-      title: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.grid_view_rounded, color: colorScheme.primary, size: 20),
-          const SizedBox(width: 8),
-          const Text(
-            'TaskFlow',
-            style: TextStyle(
-              color: Colors.black87,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-        ],
-      ),
-      centerTitle: true,
-      actions: [
-        const CircleAvatar(
-          radius: 16,
-          backgroundImage: NetworkImage(
-            'https://i.pravatar.cc/150?img=11',
-          ), // Placeholder avatar
-        ),
-        const SizedBox(width: 16),
-      ],
     );
   }
 
@@ -174,7 +136,7 @@ class TaskDetailsPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

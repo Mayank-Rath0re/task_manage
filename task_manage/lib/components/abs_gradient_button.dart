@@ -5,12 +5,16 @@ class AbsGradientButton extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final Function()? onPressed;
+  final double fontSize;
+  final bool alignCenter;
   const AbsGradientButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.prefixIcon,
     this.suffixIcon,
+    this.fontSize = 17,
+    this.alignCenter = false,
   });
 
   @override
@@ -56,13 +60,16 @@ class _AbsGradientButtonState extends State<AbsGradientButton> {
           ),
         ),
         child: Row(
+          mainAxisAlignment: widget.alignCenter
+              ? MainAxisAlignment.center
+              : MainAxisAlignment.spaceBetween,
           children: [
             if (widget.prefixIcon != null) ...[widget.prefixIcon!],
             Text(
               widget.text,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 14,
+                fontSize: widget.fontSize,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.5,
               ),

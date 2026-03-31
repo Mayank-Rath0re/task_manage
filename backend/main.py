@@ -8,6 +8,16 @@ from typing import List
 
 from database import engine, get_session
 from models import User, Task, TaskCreate, TaskUpdate, Token
+from contextlib import asynccontextmanager
+
+# Define the lifespan context manager
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Load the ML model or create DB tables
+    SQLModel.metadata.create_all(engine)
+    yield
+    # Clean up the ML models and release the resources (if any)
+    pass
 
 # --- AUTHENTICATION CONFIG ---
 SECRET_KEY = "super-secret-assessment-key" # Change in production
@@ -35,8 +45,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
     return user
 
 
-# --- FASTAPI APP ---
-app = FastAPI(title="Task Management API with Auth")
+# Initialize FastAPI with the lifespan
+app = FastAPI(title="Task Management API with Auth", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -45,10 +55,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.on_event("startup")
-def on_startup():
-    SQLModel.metadata.create_all(engine)
 
 
 # --- AUTH ENDPOINTS ---

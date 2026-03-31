@@ -21,22 +21,13 @@ class LandingPage extends StatelessWidget {
               const Spacer(flex: 1),
 
               // --- BADGE ---
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFCDE0FF), // Soft light blue
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  'SYSTEM V2.0 RELEASED',
+              RichText(
+                text: TextSpan(
+                  text: 'TaskFlow',
                   style: TextStyle(
-                    color: colorScheme.secondary, // Deep blue text
-                    fontSize: 10,
+                    color: colorScheme.secondary,
+                    fontSize: 40,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
                   ),
                 ),
               ),
@@ -80,6 +71,7 @@ class LandingPage extends StatelessWidget {
               // --- GET STARTED BUTTON ---
               AbsGradientButton(
                 text: "GET STARTED",
+                suffixIcon: Icon(Icons.arrow_forward, size: 30),
                 onPressed: () {
                   Navigator.push(
                     context,

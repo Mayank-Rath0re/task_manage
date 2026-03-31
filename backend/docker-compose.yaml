@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # 1. The Database Service
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: taskdb
+    ports:
+      - "5432:5432"
+    volumes:
+      # This ensures your data isn't deleted when the container stops
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. The FastAPI Service
+  api:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      # CRITICAL: Notice the host is 'db' (the service name above), not 'localhost'
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/taskdb
+    depends_on:
+      - db # Tells Docker to start the database before the API
+
+volumes:
+  postgres_data:

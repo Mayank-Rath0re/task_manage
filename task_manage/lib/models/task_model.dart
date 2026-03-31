@@ -3,7 +3,7 @@ class TaskModel {
   String text;
   String description;
   DateTime dueDate;
-  int status; //0 -> To Do, 1 -> In Progress, 2 -> Done
+  int status; //0 -> To Do, 1 -> In Progress, 2 -> Done, 3 -> Overdue
   int? blockedBy;
 
   TaskModel(
